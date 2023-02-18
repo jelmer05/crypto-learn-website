@@ -1,30 +1,27 @@
+<script setup></script>
+
 <template>
-  <div>
-    <button @click="toggleRef">Toggle Ref</button>
-    <div :class="{ 'my-class': myRef }">
-      This element has a conditional class
+  <section
+    class="Login container bg-white/50 rounded-lg self-center flex justify-center flex-col gap-5"
+  >
+    <div class="self-center">
+      <h1 class="text-white text-bold">Login ...</h1>
+      <p>Vul hier je gegevens in</p>
     </div>
-  </div>
+    <div class="flex justify-around w-full columns-2xs">
+      <div class="input-fields bg-white/60 rounded">
+        <input type="text" />
+      </div>
+      <div class="input-data bg-white/60 p-10 rounded">
+        <h2>jelmer</h2>
+      </div>
+    </div>
+  </section>
 </template>
 
-<script>
-import { ref } from "vue";
-
-export default {
-  setup() {
-    const myRef = ref(false);
-
-    const toggleRef = () => {
-      myRef.value = !myRef.value;
-    };
-
-    return { myRef, toggleRef };
-  },
-};
-</script>
-
 <style>
-.my-class {
-  background-color: yellow;
+h1 {
+  font-size: 2rem !important;
+  font-family: "Bebas Neue", cursive;
 }
 </style>
