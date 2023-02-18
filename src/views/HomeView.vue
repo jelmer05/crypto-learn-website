@@ -4,10 +4,13 @@ import { Chart, registerables } from "chart.js";
 import { remove } from "@vue/shared";
 Chart.register(...registerables);
 
-const { BTCData } = defineProps(["BTCData"]);
+const { BTCData, LoginData } = defineProps(["BTCData", 'LoginData']);
 
+const loginName = ref(LoginData)
 const cryptoData = ref(BTCData);
 const btcInput = ref("");
+const favCounter = ref("0");
+
 watch(btcInput, () => {
   cryptoData.value = BTCData.filter((coin) =>
     coin.symbol.toLowerCase().includes(btcInput.value.toLowerCase())
@@ -15,7 +18,14 @@ watch(btcInput, () => {
 });
 
 function toggleFavorite(index) {
-  cryptoData.value[index].favorite = !cryptoData.value[index].favorite;
+  const coin = cryptoData.value[index];
+  coin.favorite = !coin.favorite;
+
+  if (coin.favorite) {
+    favCounter.value++;
+  } else {
+    favCounter.value--;
+  }
 }
 
 const coinChanceClass = computed(() => {
@@ -30,6 +40,7 @@ const coinChanceClass = computed(() => {
     }
   };
 });
+
 </script>
 
 <template>
@@ -38,7 +49,7 @@ const coinChanceClass = computed(() => {
       <h2
         class="text-3xl text-white tracking-wide underline underline-offset-4"
       >
-        welcome, Jelmer
+        welcome, {{loginName}} {{ favCounter }}
       </h2>
     </div>
 
@@ -84,7 +95,7 @@ const coinChanceClass = computed(() => {
           </p>
         </div>
         <div>
-          <h1>ukg</h1>
+          <h2>ukg</h2>
         </div>
         <div>
           <div>

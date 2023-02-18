@@ -4,8 +4,7 @@ import { RouterView } from "vue-router";
 import axios from "axios";
 import loading from "./views/LoadingView.vue";
 import Nav from "./components/Nav.vue";
-
-// const axios = require("axios");
+import LoginName from "./components/LoginName.vue";
 
 const options = {
   method: "GET",
@@ -17,24 +16,42 @@ const options = {
 };
 const coinData = ref([]);
 
-axios
-  .request(options)
-  .then(function (response) {
-    coinData.value = response.data.slice(0, 100);
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+const loginName = ref("");
 
-console.log(coinData.value);
+
+onMounted(() => {
+  const storedLoginName = localStorage.getItem('loginName');
+  if (storedLoginName) {
+    loginName.value = storedLoginName;
+  }
+});
+
+const nameData = (nameInput) => {
+  loginName.value = nameInput
+localStorage.setItem('loginName', nameInput )
+}
+
+axios
+.request(options)
+.then(function (response) {
+  coinData.value = response.data.slice(0, 100);
+})
+.catch(function (error) {
+  console.error(error);
+});
+
 </script>
 <template>
+  <section v-if="!loginName">
+    <loginName @NameData="nameData"/>
+  </section>
   <div
+    v-else
     class="container-fluid pt-4 app-tl bg-gradient-to-r from-sky-500 to-indigo-500 min-h-screen"
   >
     <Nav />
     <div class="container-fluid flex flex-col">
-      <RouterView :BTCData="coinData" v-if="coinData.length > 0" />
+      <RouterView :BTCData="coinData" :LoginData="loginName" v-if="coinData" />
       <loading v-else />
     </div>
   </div>
