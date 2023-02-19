@@ -49,7 +49,7 @@ const coinChanceClass = computed(() => {
       <h2
         class="text-3xl text-white tracking-wide underline underline-offset-4"
       >
-        welcome, {{loginName}} {{ favCounter }}
+        welcome, {{loginName}}
       </h2>
     </div>
 

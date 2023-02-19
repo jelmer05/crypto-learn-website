@@ -24,7 +24,7 @@ import { RouterLink } from "vue-router";
           active-class="active"
           class="hover:bg-gray-400/10"
           to="/login"
-          >login
+          >Account
         </router-link>
       </ul>
     </div>
