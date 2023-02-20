@@ -27,16 +27,31 @@ const nameData = (nameInput) => {
   localStorage.setItem('loginName', nameInput )
 }
 
-onMounted(() => {
-  axios
-  .request(options)
-  .then(function (response) {
-    coinData.value = response.data.slice(0, 100);
+// Check if cached data exists and is not expired
+const cachedData = localStorage.getItem("coinData");
+if (cachedData) {
+  const { data, timestamp } = JSON.parse(cachedData);
+  if (Date.now() - timestamp < 60 * 60 * 1000) {
+    coinData.value = data;
     isLoading.value = true
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+  }
+}
+onMounted(() => {
+  if (!coinData.value.length) {
+    axios
+      .request(options)
+      .then(function (response) {
+        coinData.value = response.data.slice(0, 100);
+        isLoading.value = true;
+        localStorage.setItem(
+          "coinData",
+          JSON.stringify({ data: coinData.value, timestamp: Date.now() })
+        );
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
 });
 
 onMounted(() => {
@@ -45,7 +60,7 @@ onMounted(() => {
     loginName.value = storedLoginName;
   }
 });
-isLoading.value = true
+
 </script>
 <template>
   <section v-if="!loginName">
