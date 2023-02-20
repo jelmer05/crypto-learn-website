@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Login from "../views/Login.vue";
+import Account from "../views/Account.vue";
 import Notfound from "../views/NotFound.vue";
 
 const router = createRouter({
@@ -12,9 +12,9 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/login",
-      name: "login",
-      component: Login,
+      path: "/account",
+      name: "account",
+      component: Account,
     },
     {
       path: "/:catchall(.*)*",

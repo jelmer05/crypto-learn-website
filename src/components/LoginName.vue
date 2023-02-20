@@ -17,7 +17,7 @@ const resultName = ref(null);
     class="h-screen flex-col gap-2 items-center  flex justify-center bg-cyan-700"
   >
     <div
-      class="bg-white/80 p-6 flex justify-around flex-col gap-5 h-1/2 w-10/12 lg:w-1/3 rounded-lg"
+      class="bg-white/80  p-6 flex justify-around flex-col gap-5 h-1/2 w-10/12 lg:w-1/3 rounded-lg"
     >
     <div>
       

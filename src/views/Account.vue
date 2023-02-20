@@ -8,17 +8,16 @@
       <h1 class="text-white text-bold">Login ...</h1>
       <p>Vul hier je gegevens in</p>
     </div>
-    <div class="flex justify-around w-full columns-2xs">
-      <div class="input-fields bg-white/60 rounded">
+    <div class="flex flex-col gap-3  items-center md:flex-row md:justify-around w-full ">
+      <div class="input-fields order-2 bg-white/60 md:order-1 w-4/5 md:w-1/3 rounded">
         <input type="text" />
-      </div>
-      <div class="input-data bg-white/60 p-10 rounded">
-        <h2>jelmer</h2>
+      </div>      <div class="input-data order-1 bg-white/60 md:order-2  w-4/5 md:w-1/3 p-10 rounded">
+
+        <h2>jelmerr</h2>
       </div>
     </div>
   </section>
 </template>
-
 <style>
 h1 {
   font-size: 2rem !important;

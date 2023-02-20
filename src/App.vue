@@ -14,10 +14,30 @@ const options = {
     "X-RapidAPI-Host": "binance43.p.rapidapi.com",
   },
 };
+
 const coinData = ref([]);
+const isLoading = ref(false)
 
 const loginName = ref("");
 
+
+
+const nameData = (nameInput) => {
+  loginName.value = nameInput
+  localStorage.setItem('loginName', nameInput )
+}
+
+onMounted(() => {
+  axios
+  .request(options)
+  .then(function (response) {
+    coinData.value = response.data.slice(0, 100);
+    isLoading.value = true
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+});
 
 onMounted(() => {
   const storedLoginName = localStorage.getItem('loginName');
@@ -25,21 +45,7 @@ onMounted(() => {
     loginName.value = storedLoginName;
   }
 });
-
-const nameData = (nameInput) => {
-  loginName.value = nameInput
-localStorage.setItem('loginName', nameInput )
-}
-
-axios
-.request(options)
-.then(function (response) {
-  coinData.value = response.data.slice(0, 100);
-})
-.catch(function (error) {
-  console.error(error);
-});
-
+isLoading.value = true
 </script>
 <template>
   <section v-if="!loginName">
@@ -51,7 +57,7 @@ axios
   >
     <Nav />
     <div class="container-fluid flex flex-col">
-      <RouterView :BTCData="coinData" :LoginData="loginName" v-if="coinData" />
+      <RouterView :BTCData="coinData" :LoginData="loginName" v-if="isLoading" />
       <loading v-else />
     </div>
   </div>
