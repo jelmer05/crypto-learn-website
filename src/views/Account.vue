@@ -13,7 +13,7 @@
         <input type="text" />
       </div>      <div class="input-data order-1 bg-white/60 md:order-2  w-4/5 md:w-1/3 p-10 rounded">
 
-        <h2>jelmerr</h2>
+        <h2>Reset</h2>
       </div>
     </div>
   </section>
