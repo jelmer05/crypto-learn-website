@@ -16,16 +16,14 @@ const options = {
 };
 
 const coinData = ref([]);
-const isLoading = ref(false)
+const isLoading = ref(false);
 
 const loginName = ref("");
 
-
-
 const nameData = (nameInput) => {
-  loginName.value = nameInput
-  localStorage.setItem('loginName', nameInput )
-}
+  loginName.value = nameInput;
+  localStorage.setItem("loginName", nameInput);
+};
 
 // Check if cached data exists and is not expired
 const cachedData = localStorage.getItem("coinData");
@@ -33,7 +31,7 @@ if (cachedData) {
   const { data, timestamp } = JSON.parse(cachedData);
   if (Date.now() - timestamp < 60 * 60 * 1000) {
     coinData.value = data;
-    isLoading.value = true
+    isLoading.value = true;
   }
 }
 onMounted(() => {
@@ -55,24 +53,28 @@ onMounted(() => {
 });
 
 onMounted(() => {
-  const storedLoginName = localStorage.getItem('loginName');
+  const storedLoginName = localStorage.getItem("loginName");
   if (storedLoginName) {
     loginName.value = storedLoginName;
   }
 });
-
 </script>
 <template>
   <section v-if="!loginName">
-    <loginName @NameData="nameData"/>
+    <loginName @NameData="nameData" />
   </section>
   <div
     v-else
-    class="container-fluid pt-4 app-tl bg-gradient-to-r from-sky-500 to-indigo-500 min-h-screen"
+    class="container-fluid app-tl min-h-screen bg-gradient-to-r from-sky-500 to-indigo-500 pt-4"
   >
     <Nav />
     <div class="container-fluid flex flex-col">
-      <RouterView :BTCData="coinData" :LoginData="loginName" v-if="isLoading" />
+      <RouterView
+        :BTCData="coinData"
+        :LoginData="loginName"
+        @favChange="favChange"
+        v-if="isLoading"
+      />
       <loading v-else />
     </div>
   </div>

@@ -1,12 +1,13 @@
 <script setup>
-import { ref, watch, computed } from "vue";
+import { ref, watch, computed, defineEmits } from "vue";
 import { Chart, registerables } from "chart.js";
 import { remove } from "@vue/shared";
 Chart.register(...registerables);
 
-const { BTCData, LoginData } = defineProps(["BTCData", 'LoginData']);
+const emit = defineEmits(["favChange"]);
+const { BTCData, LoginData } = defineProps(["BTCData", "LoginData"]);
 
-const loginName = ref(LoginData)
+const loginName = ref(LoginData);
 const cryptoData = ref(BTCData);
 const btcInput = ref("");
 const favCounter = ref("0");
@@ -26,6 +27,7 @@ function toggleFavorite(index) {
   } else {
     favCounter.value--;
   }
+  emit("favChange", coin, favCounter);
 }
 
 const coinChanceClass = computed(() => {
@@ -40,22 +42,21 @@ const coinChanceClass = computed(() => {
     }
   };
 });
-
 </script>
 
 <template>
-  <div class="container p-6 self-center flex justify-around">
+  <div class="container flex justify-around self-center p-6">
     <div class="w-50 text-center">
       <h2
-        class="text-3xl text-white tracking-wide underline underline-offset-4"
+        class="text-3xl tracking-wide text-white underline underline-offset-4"
       >
-        welcome, {{loginName}}
+        welcome, {{ loginName }}
       </h2>
     </div>
 
     <div>
       <input
-        class="rounded-lg text-center h-8 drop-shadow-xl"
+        class="h-8 rounded-lg text-center drop-shadow-xl"
         v-model.trim="btcInput"
         type="text"
         placeholder="filter..."
@@ -64,20 +65,20 @@ const coinChanceClass = computed(() => {
   </div>
 
   <div
-    class="container flex flex-col gap-3 self-center p-6 h-50 rounded-lg bg-white/50 mt-10"
+    class="h-50 container mt-10 flex flex-col gap-3 self-center rounded-lg bg-white/50 p-6"
   >
-    <div class="nav grid grid-cols-5 P-3 text-white">
+    <div class="nav P-3 grid grid-cols-5 text-white">
       <div><p>Name</p></div>
       <div><p>Price</p></div>
       <div><p>24h change</p></div>
       <div><p>day trend</p></div>
       <div><p>Favorite</p></div>
     </div>
-    <section v-if="cryptoData.length > 0" class="gap-3 flex flex-col">
+    <section v-if="cryptoData.length > 0" class="flex flex-col gap-3">
       <div
         v-for="(coin, index) in cryptoData"
         :key="coin.symbol"
-        class="coin bg-white/50 rounded-lg p-3 grid grid-cols-5"
+        class="coin grid grid-cols-5 rounded-lg bg-white/50 p-3"
       >
         <div>
           <p class="font-bold">{{ coin.symbol }}</p>

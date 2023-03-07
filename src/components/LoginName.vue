@@ -3,35 +3,30 @@ import { NORMALIZE_STYLE } from "@vue/compiler-core";
 import { ref, defineEmits } from "vue";
 
 const nameInput = ref("");
-const emit = defineEmits(['NameData']);
+const emit = defineEmits(["NameData"]);
 
 const handleSubmit = () => {
   // Emit an event with a constant reference value
-  emit('NameData', nameInput.value);
-}
+  emit("NameData", nameInput.value);
+};
 
 const resultName = ref(null);
 </script>
 <template>
   <section
-    class="h-screen flex-col gap-2 items-center  flex justify-center bg-cyan-700"
+    class="flex h-screen flex-col items-center justify-center gap-2 bg-cyan-700"
   >
     <div
-      class="bg-white/80  p-6 flex justify-around flex-col gap-5 h-1/2 w-10/12 lg:w-1/3 rounded-lg"
+      class="flex h-1/2 w-10/12 flex-col justify-around gap-5 rounded-lg bg-white/80 p-6 lg:w-1/3"
     >
-    <div>
-      
-      <h1>Enter name:</h1>
-    </div>
+      <div>
+        <h1>Enter name:</h1>
+      </div>
 
-      <input
-        class="h-10 w-full px-3 rounded"
-        v-model="nameInput"
-        type="text"
-      />
+      <input class="h-10 w-full rounded px-3" v-model="nameInput" type="text" />
       <button
-@click="handleSubmit"
-        class="bg-white w-full h-8 rounded transition hover:bg-cyan-700/80 hover:text-white"
+        @click="handleSubmit"
+        class="h-8 w-full rounded bg-white transition hover:bg-cyan-700/80 hover:text-white"
       >
         Submit
       </button>
